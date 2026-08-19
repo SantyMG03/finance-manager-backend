@@ -42,5 +42,5 @@ jobs:
       - name: 4. Ejecutar los tests
         env:
           # Environment variable so Spring context loads correctly
-          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          FINNHUB_API_KEY: "dummy-key" # ${{ secrets.FINNHUB_API_KEY }}
         run: ./mvnw clean test
