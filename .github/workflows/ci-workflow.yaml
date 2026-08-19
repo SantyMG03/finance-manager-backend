@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Give permission to Maven Wrapper
+        run: chmod +x ./mvnw
+
+      - name: 4. Ejecutar los tests
+        env:
+          # Environment variable so Spring context loads correctly
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: ./mvnw clean test
