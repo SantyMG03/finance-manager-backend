@@ -2,6 +2,8 @@
 
 A REST API for personal finance and investment portfolio tracking. Manage bank accounts, log daily expenses in a diary, record stock/ETF buy and sell transactions, and get a real-time portfolio analysis.
 
+> **Demo frontend:** a minimal React client that exercises every endpoint is available at [finance-manager-frontend](https://github.com/SantyMG03/finance-manager-frontend). It is intentionally kept small — just enough to verify that the whole backend works.
+
 ## 🛠️ Technologies
 
 * **Java 17**
@@ -22,6 +24,7 @@ A REST API for personal finance and investment portfolio tracking. Manage bank a
 * User registration and login (`/api/auth/register`, `/api/auth/login`) with BCrypt password hashing.
 * Stateless JWT authentication; all endpoints except auth, Swagger and errors require a `Bearer` token.
 * Multi-user support: every user only sees and manages their own data.
+* CORS enabled for `http://localhost:5173` (the demo frontend origin).
 
 ### Investment Portfolio (`/api/transactions`)
 * CRUD of stock/ETF buy and sell transactions (ticker, ISIN, broker, shares, price, commission, total).
