@@ -8,6 +8,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # Set up a MySQL service on the GitHub server.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: financedb
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: adminpassword
+          MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
