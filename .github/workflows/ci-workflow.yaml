@@ -42,5 +42,6 @@ jobs:
       - name: 4. Ejecutar los tests
         env:
           # Environment variable so Spring context loads correctly
-          FINNHUB_API_KEY: "dummy-key" # ${{ secrets.FINNHUB_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/financedb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
         run: ./mvnw clean test
