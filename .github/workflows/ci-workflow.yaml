@@ -15,7 +15,7 @@ jobs:
         env:
           MYSQL_DATABASE: financedb
           MYSQL_USER: admin
-          MYSQL_PASSWORD: adminpassword
+          MYSQL_PASSWORD: root
           MYSQL_ROOT_PASSWORD: rootpassword
         ports:
           - 3306:3306
