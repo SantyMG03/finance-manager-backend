@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: finance_db
+    environment:
+      MYSQL_DATABASE: financedb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminpassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: finance_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        # Tell the backend to wait for the db to be operative
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/financedb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=adminpassword
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - FINNHUB_API_KEY=${FINNHUB_API_KEY}
+
+volumes:
+  mysql_data:
