@@ -20,6 +20,14 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:alpine
+    container_name: finance_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    command: redis-server --loglevel warning
+
   backend:
     build: .
     container_name: finance_backend
