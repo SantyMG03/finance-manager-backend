@@ -54,6 +54,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/webjars/**",
                                 "/api/auth/**",
+                                "/actuator/health",
                                 "/error"
                         ).permitAll()
                         .anyRequest().authenticated())
