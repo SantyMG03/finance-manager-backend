@@ -1,6 +1,7 @@
 package com.santy.finances.clients;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +25,7 @@ public class FinnhubClient {
      * @param ticker The stock symbol (e.g., AAPL).
      * @return The current market price.
      */
+    @Cacheable(value = "quotes", key = "#ticker")
     public BigDecimal getCurrentPrice(String ticker) {
         try {
             String url = baseUrl + "?symbol=" + ticker + "&token=" + apiKey;
